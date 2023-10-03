@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{matrix.os}}
     env:
       HOST: localhost
-      PASSWORD: 5432
+      PORT: 5432
       USER: root
       PASSWORD: root
       DBNAME: root
