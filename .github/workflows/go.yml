@@ -12,21 +12,17 @@ on:
 jobs:
 
   test:
-    runs-on: ${{matrix.os}}
+    runs-on: ubuntu-latest
+    
     env:
       HOST: localhost
       PORT: 5432
       USER: root
       PASSWORD: root
       DBNAME: root
-    strategy:
-      matrix:
-        go_version: ['1.18', '1.17', '>=1.18']
-        os: ['ubuntu-latest', 'ubuntu-20.04']
+      
     steps:
-    
     - uses: actions/checkout@v3
-
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
@@ -56,6 +52,12 @@ jobs:
         go-version: '1.18'
     - name: Build
       run: go build -v main.go
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.3
+      with:
+        name: programa
+        path: main
+
   docker:
     needs: build
     uses: ./.github/workflows/Docker.yml
